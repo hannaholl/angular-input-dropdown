@@ -1,6 +1,10 @@
 # Angular input dropdown
 Angular input dropdown is an angular directive for creating an input field with a stylable dropdown list. The list can be filtered or updated as the user types to show a list based on the user's input.
 
+## Demo
+A demo can be viewed <a href="http://embed.plnkr.co/cnPM0J/preview">here</a>.   
+The demo code can also be found in /demo.
+
 ## Getting started
 #### 1. Include the CSS and JS files in your project
 ```html
@@ -143,8 +147,6 @@ this.filterDropdown = function(userInput) {
 <input-dropdown filter-list-method="myController.filterDropdown(userInput)"></input-dropdown>
 ```
 
-## Demo
-A demo displaying various functionality can be found in /demo.
 
 ## License
 MIT
