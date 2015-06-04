@@ -1,11 +1,13 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>Angular input dropdown demo</title>
     <link rel='stylesheet' href='../inputDropdownStyles.css' />
 
     <style>
       body {
         font-family: Arial, sans-serif;
-        padding: 30px 0 0 40px;
+        padding: 10px 0 0 40px;
       }
       h1, h2 {
         font-weight: normal;
@@ -37,6 +39,7 @@
 
     <div class="content" ng-controller="InputDropdownController as dropdownCtrl">
       <h1>Angular input dropdown demo</h1>
+      <p>Code on <a href="https://github.com/hannaholl/angular-input-dropdown">Github</a>.</p>
       <h2>Select a country from a list of strings</h2>
       <form name="demoFormStrings" ng-submit="dropdownCtrl.submitFormStrings()" novalidate>
         <input-dropdown
