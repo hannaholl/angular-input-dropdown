@@ -34,9 +34,9 @@
       }
     </style>
   </head>
-  <body ng-app="input-dropdown-demo">
+  <body ng-app="inputDropdownDemo">
 
-    <div class="content" ng-controller="inputDropdownController as dropdownCtrl">
+    <div class="content" ng-controller="InputDropdownController as dropdownCtrl">
       <h1>Angular input dropdown demo</h1>
       <h2>Select a country from a list of strings</h2>
       <form name="demoFormStrings" ng-submit="dropdownCtrl.submitFormStrings()" novalidate>
@@ -76,9 +76,9 @@
     <script>
 
       // Add 'inputDropdown' as a dependency when creating angular app
-      var demoApp = angular.module('input-dropdown-demo', ['inputDropdown']);
+      var demoApp = angular.module('inputDropdownDemo', ['inputDropdown']);
 
-      demoApp.controller('inputDropdownController', [
+      demoApp.controller('InputDropdownController', [
         '$scope',
         '$q',
         function($scope, $q) {
