@@ -54,6 +54,7 @@
         </input-dropdown>
         <button type="submit" ng-disabled="demoFormStrings.$invalid">Submit</button>
       </form>
+      <p>{{dropdownCtrl.stringMessage}}</p>
 
       <h2>Select a country from a list of objects</h2>
       <form name="demoFormObjects" ng-submit="dropdownCtrl.submitFormObjects()" novalidate>
@@ -69,6 +70,7 @@
         </input-dropdown>
         <button type="submit" ng-disabled="demoFormObjects.$invalid">Submit</button>
       </form>
+      <p>{{dropdownCtrl.objectMessage}}</p>
 
    </div>
 
@@ -85,6 +87,9 @@
         '$q',
         function($scope, $q) {
           var self = this;
+
+          self.stringMessage = '';
+          self.objectMessage = '';
 
           self.countryString = null; // Holds the selected in demoFormStrings, set with attribute 'selected-item'
           self.countryObject = null; // Holds the selected in demoFormObjects, set with attribute 'selected-item'
@@ -103,22 +108,34 @@
             {
               readableName: 'China',
               countryCode: 'CH',
-              id: 0
+              id: 0,
+              toString: function() {
+                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
+              }
             },
             {
               readableName: 'Sweden',
               countryCode: 'SE',
-              id: 1
+              id: 1,
+              toString: function() {
+                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
+              }
             },
             {
               readableName: 'United Kingdom',
               countryCode: 'UK',
-              id: 2
+              id: 2,
+              toString: function() {
+                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
+              }
             },
             {
               readableName: 'United States',
               countryCode: 'US',
-              id: 3
+              id: 3,
+              toString: function() {
+                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
+              }
             }
           ];
 
@@ -156,22 +173,26 @@
           // Called when user selected an item from dropdown. Passed with attribute 'item-selected-method="method(item)"'.
           self.itemStringSelected = function(item) {
             console.log('Handle item string selected in controller:', item);
+            self.stringMessage = 'String item selected: ' + item;
           };
 
           self.itemObjectSelected = function(item) {
             console.log('Handle item object selected in controller:', item);
+            self.objectMessage = 'Object item selected: ' + item;
           };
 
 
           self.submitFormStrings = function() {
             if ($scope.demoFormStrings.$valid) {
               console.log('Submit form STRINGS with country:', self.countryString);
+              self.stringMessage = 'Submit form STRINGS with country: ' + self.countryString;
             }
           };
 
           self.submitFormObjects = function() {
             if ($scope.demoFormObjects.$valid) {
               console.log('Submit form OBJECTS with country:', self.countryObject);
+              self.objectMessage = 'Submit form OBJECT with country: ' + self.countryObject;
             }
           };
 
