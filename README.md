@@ -1,9 +1,17 @@
 # Angular input dropdown
 Angular input dropdown is an angular directive for creating an input field with a stylable dropdown list. The list can be filtered or updated as the user types to show a list based on the user's input.
 
+If used in a form and `input-required` is set to true, the input field will validate only when an item from the dropdown list has been selected.
+
 ## Demo
 A demo can be viewed <a href="http://embed.plnkr.co/cnPM0J/preview">here</a>.   
 The demo code can also be found in /demo.
+
+## Installation
+You download the files manually or install angular input dropdown with bower:
+```
+bower install angular-input-dropdown
+```
 
 ## Getting started
 #### 1. Include the CSS and JS files in your project
