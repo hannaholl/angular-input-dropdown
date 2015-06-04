@@ -1,0 +1,28 @@
+.input-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.input-dropdown input[type='text'] {
+  width: 100%;
+}
+
+.input-dropdown ul {
+  background: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.input-dropdown ul > li {
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.input-dropdown ul > li.active {
+  background: #386BD9;
+}
