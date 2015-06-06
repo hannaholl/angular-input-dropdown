@@ -50,7 +50,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       scope.activeItemIndex = 0;
       scope.inputValue = '';
       scope.dropdownVisible = false;
-      scope.dropdownItems = scope.defaultDropdownItems;
+      scope.dropdownItems = scope.defaultDropdownItems || [];
 
       scope.$watch('dropdownItems', function(newValue, oldValue) {
         if (!angular.equals(newValue, oldValue)) {
@@ -88,7 +88,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         showDropdown();
 
         if (!scope.inputValue) {
-          scope.dropdownItems = scope.defaultDropdownItems;
+          scope.dropdownItems = scope.defaultDropdownItems || [];
           return;
         }
 
