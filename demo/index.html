@@ -105,38 +105,10 @@
           // Use objects in the dropdown list if more data than just a string is needed.
           // Every object needs to have a property 'readableName', this is what will be displayed in the dropdown.
           self.defaultDropdownObjects = [
-            {
-              readableName: 'China',
-              countryCode: 'CH',
-              id: 0,
-              toString: function() {
-                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
-              }
-            },
-            {
-              readableName: 'Sweden',
-              countryCode: 'SE',
-              id: 1,
-              toString: function() {
-                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
-              }
-            },
-            {
-              readableName: 'United Kingdom',
-              countryCode: 'UK',
-              id: 2,
-              toString: function() {
-                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
-              }
-            },
-            {
-              readableName: 'United States',
-              countryCode: 'US',
-              id: 3,
-              toString: function() {
-                return '{readableName: ' + this.readableName + ', countryCode: ' + this.countryCode + ', id: ' + this.id + '}';
-              }
-            }
+            new Country(0, 'China', 86),
+            new Country(1, 'Sweden', 46),
+            new Country(2, 'United Kingdom', 44),
+            new Country(3, 'United States', 1)
           ];
 
 
@@ -160,8 +132,8 @@
             var normalisedInput = userInput.toLowerCase();
 
             var filteredArray = self.defaultDropdownObjects.filter(function(country) {
-              var matchCountryName = country.readableName.toLowerCase().indexOf(normalisedInput) === 0;
-              var matchCountryCode = country.countryCode.toLowerCase().indexOf(normalisedInput) === 0;
+              var matchCountryName = country.name.toLowerCase().indexOf(normalisedInput) === 0;
+              var matchCountryCode = country.code.toString().indexOf(normalisedInput) === 0;
               return matchCountryName || matchCountryCode;
             });
 
@@ -198,6 +170,19 @@
 
         }
       ]);
+
+      // Country object used in dropdown
+      var Country = function(id, countryName, countryCode) {
+        this.id = id;
+        this.name = countryName;
+        this.code = countryCode;
+        this.readableName = '(+' + countryCode + ') ' + countryName;
+      };
+
+      // toString method used to log information about object for demo purposes
+      Country.prototype.toString = function() {
+        return '{id: ' + this.id + ', readableName: ' + this.readableName + ', name: ' + this.name + ', code: ' + this.code + '}';
+      }
 
     </script>
   </body>
