@@ -4,7 +4,7 @@ Angular input dropdown is an angular directive for creating an input field with 
 If used in a form and `input-required` is set to true, the input field will validate only when an item from the dropdown list has been selected.
 
 ## Demo
-A demo can be viewed <a href="http://embed.plnkr.co/cnPM0J/preview">here</a>.   
+A demo can be viewed <a href="http://embed.plnkr.co/MO4go8Zr5moYKNhBt4wr/preview">here</a>.   
 The demo code can also be found in /demo.
 
 ## Installation
