@@ -58,15 +58,15 @@ Some basics styles are included in the `inputDropdownStyles.css` file. To overwr
 }
 
 .input-dropdown ul {
-  /* Style the drowndown list */
+  /* Style the dropdown list */
 }
 
 .input-dropdown ul > li {
-  /* Style the drowndown list item */
+  /* Style the dropdown list item */
 }
 
 .input-dropdown ul > li.active {
-  /* Style the drowndown list item when active.
+  /* Style the dropdown list item when active.
     The active class is added to an item on mouse over or when it's selected with the arrow keys. */
 }
 ```
