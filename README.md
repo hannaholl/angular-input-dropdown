@@ -83,6 +83,17 @@ These attributes are available to set on the `<input-dropdown>` directive.
 * `default-dropdown-items`: Array. An array of strings or object to show in the dropdown list. If objects, each object must have a property `readableName` which is what will show in the dropdown. If not set there will be no default list when the input field is empty and you'll need to pass a list based on the users input in the `filter-list-method`.
 * `filter-list-method`: Function. Called when user types in the input field. Must return a promise that resolves with an array to use as a new dropdown list. Must be set with a `userInput` paramater: `filter-list-method="methodToCall(userInput)"`.
 * `item-selected-method`: Function. Called when user selects an item from the dropdown. Must be set with an `item` paramater: `item-selected-method="methodToCall(item)"`.
+* `allow-custom-input`: Boolean. Set to true to let user enter their own value instead of forcing an item from the dropdown list to be selected.
+
+### Custom user intup
+By default the field will only validate once the user has selected a value from the dropdown list. If you don't want this behaviour set the `allow-custom-input` attribute to true. This will allow the user to enter any value into the field and  set the field to be valid even if no item from the list was selected. This could be useful if you want to show the user a list of suggestions, but still want to let them submit a custom value too.
+
+#### Example
+```html
+<input-dropdown
+  allow-custom-input="true">
+</input-dropdown>
+```
 
 ### Dropdown with objects
 Use objects in the dropdown list if you need more data than just strings. Each object needs to have a property `readableName`, this is what will be displayed in the dropdown.
