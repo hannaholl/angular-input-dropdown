@@ -4,6 +4,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
     '<input type="text"' +
            'name="{{inputName}}"' +
            'placeholder="{{inputPlaceholder}}"' +
+           'autocomplete="off"' +
            'ng-model="inputValue"' +
            'ng-required="inputRequired"' +
            'ng-change="inputChange()"' +
@@ -28,6 +29,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
     scope: {
       defaultDropdownItems: '=',
       selectedItem: '=',
+      allowCustomInput: '=',
       inputRequired: '=',
       inputName: '@',
       inputPlaceholder: '@',
@@ -42,6 +44,12 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       this.isRequired = function() {
         return $scope.inputRequired;
       };
+      this.customInputAllowed = function() {
+        return $scope.allowCustomInput;
+      };
+      this.getInput = function() {
+        return $scope.inputValue;
+      };
     },
     link: function(scope, element) {
       var pressedDropdown = false;
@@ -55,7 +63,12 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       scope.$watch('dropdownItems', function(newValue, oldValue) {
         if (!angular.equals(newValue, oldValue)) {
           // If new dropdownItems were retrieved, reset active item
-          scope.setActive(0);
+          if (scope.allowCustomInput) {
+            scope.setInputActive();
+          }
+          else {
+            scope.setActive(0);
+          }
         }
       });
 
@@ -79,6 +92,12 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         }
       });
 
+      scope.setInputActive = function() {
+        scope.setActive(-1);
+
+        //TODO: Add active/selected class to input field for styling
+      };
+
       scope.setActive = function(itemIndex) {
         scope.activeItemIndex = itemIndex;
       };
@@ -90,6 +109,9 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         if (!scope.inputValue) {
           scope.dropdownItems = scope.defaultDropdownItems || [];
           return;
+        }
+        else if (scope.allowCustomInput) {
+          inputScope.updateInputValidity();
         }
 
         if (scope.filterListMethod) {
@@ -103,7 +125,12 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       };
 
       scope.inputFocus = function() {
-        scope.setActive(0);
+        if (scope.allowCustomInput) {
+          scope.setInputActive();
+        }
+        else {
+          scope.setActive(0);
+        }
         showDropdown();
       };
 
@@ -118,7 +145,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
 
       scope.dropdownPressed = function() {
         pressedDropdown = true;
-      }
+      };
 
       scope.selectItem = function(item) {
         scope.selectedItem = item;
@@ -135,12 +162,15 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       };
       var hideDropdown = function() {
         scope.dropdownVisible = false;
-      }
+      };
 
       var selectPreviousItem = function() {
         var prevIndex = scope.activeItemIndex - 1;
         if (prevIndex >= 0) {
           scope.setActive(prevIndex);
+        }
+        else if (scope.allowCustomInput) {
+          scope.setInputActive();
         }
       };
 
@@ -155,6 +185,9 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         if (scope.activeItemIndex >= 0 && scope.activeItemIndex < scope.dropdownItems.length) {
           scope.selectItem(scope.dropdownItems[scope.activeItemIndex]);
         }
+        else if (scope.allowCustomInput && scope.activeItemIndex === -1) {
+          //TODO: Select user input. Do we need to call the controller here (ie scope.itemSelectedMethod()) or is it enough to just leave the input value in the field?
+        }
       };
 
       element.bind("keydown keypress", function (event) {
@@ -166,7 +199,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
             scope.$apply(selectNextItem);
             break;
           case 13: // return
-            if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0) {
+            if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0 && scope.activeItemIndex !== -1) {
               // only preventDefault when there is a list so that we can submit form with return key after a selection is made
               event.preventDefault();
               scope.$apply(selectActiveItem);
@@ -190,12 +223,22 @@ angular.module('inputDropdown').directive('inputDropdownValidator', function() {
 
       scope.updateInputValidity = function() {
         var selection = inputDropdownCtrl.getSelectedItem();
-        if (selection || !inputDropdownCtrl.isRequired()) {
-          ngModelCtrl.$setValidity(validatorName, true);
+        var isValid = false;
+
+        if (!inputDropdownCtrl.isRequired()) {
+          // Input isn't required, so it's always valid
+          isValid = true;
         }
-        else {
-          ngModelCtrl.$setValidity(validatorName, false);
+        else if (inputDropdownCtrl.customInputAllowed() && inputDropdownCtrl.getInput()) {
+          // Custom input is allowed so we just need to make sure the input field isn't empty
+          isValid = true;
         }
+        else if (selection) {
+          // Input is required and custom input is not allowed, so only validate if an item is selected
+          isValid = true;
+        }
+
+        ngModelCtrl.$setValidity(validatorName, isValid);
       };
     }
   };
