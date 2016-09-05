@@ -112,7 +112,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         if(scope.inputValue == ''){
           scope.activeItemIndex = 0;
           scope.dropdownItems = scope.defaultDropdownItems || [];
-        }else if (scope.allowCustomInput) {
+        } else if (scope.allowCustomInput) {
           inputScope.updateInputValidity();
         }
 
