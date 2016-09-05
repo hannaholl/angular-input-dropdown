@@ -104,13 +104,15 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
 
       scope.inputChange = function() {
         scope.selectedItem = null;
-        showDropdown();
 
         if (!scope.inputValue) {
           scope.dropdownItems = scope.defaultDropdownItems || [];
           return;
         }
-        else if (scope.allowCustomInput) {
+        if(scope.inputValue == ''){
+          scope.activeItemIndex = 0;
+          scope.dropdownItems = scope.defaultDropdownItems || [];
+        }else if (scope.allowCustomInput) {
           inputScope.updateInputValidity();
         }
 
