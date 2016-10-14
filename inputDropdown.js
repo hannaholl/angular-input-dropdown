@@ -14,8 +14,8 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
      '<ul ng-show="dropdownVisible">' +
       '<li ng-repeat="item in dropdownItems"' +
           'ng-click="selectItem(item)"' +
-          'ng-mouseenter="setActive($index)"' +
-          'ng-mousedown="dropdownPressed()"' +
+          'ng-tap="selectItem(item)"' +
+          'ng-mousedown="selectItem(item)"' +
           'ng-class="{\'active\': activeItemIndex === $index}"' +
           '>' +
         '<span ng-if="item.readableName">{{item.readableName}}</span>' +
@@ -75,7 +75,6 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       scope.$watch('selectedItem', function(newValue, oldValue) {
         inputScope.updateInputValidity();
 
-        if (!angular.equals(newValue, oldValue)) {
           if (newValue) {
             // Update value in input field to match readableName of selected item
             if (typeof newValue === 'string') {
@@ -85,11 +84,6 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
               scope.inputValue = newValue.readableName;
             }
           }
-          else {
-            // Uncomment to clear input field when editing it after making a selection
-            // scope.inputValue = '';
-          }
-        }
       });
 
       scope.setInputActive = function() {
