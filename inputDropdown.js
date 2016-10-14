@@ -14,7 +14,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
      '<ul ng-show="dropdownVisible">' +
       '<li ng-repeat="item in dropdownItems"' +
           'ng-click="selectItem(item)"' +
-          'ng-mouseenter="setActive($index)"' +
+          'ng-mouseenter="selectItem(item)"' +
           'ng-mousedown="dropdownPressed()"' +
           'ng-class="{\'active\': activeItemIndex === $index}"' +
           '>' +
