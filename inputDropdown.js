@@ -75,7 +75,6 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       scope.$watch('selectedItem', function(newValue, oldValue) {
         inputScope.updateInputValidity();
 
-        if (!angular.equals(newValue, oldValue)) {
           if (newValue) {
             // Update value in input field to match readableName of selected item
             if (typeof newValue === 'string') {
@@ -85,11 +84,6 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
               scope.inputValue = newValue.readableName;
             }
           }
-          else {
-            // Uncomment to clear input field when editing it after making a selection
-            // scope.inputValue = '';
-          }
-        }
       });
 
       scope.setInputActive = function() {
