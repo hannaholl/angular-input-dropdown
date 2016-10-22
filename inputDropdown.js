@@ -205,6 +205,11 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
               scope.$apply(selectActiveItem);
             }
             break;
+          case 9: // tab
+            if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0 && scope.activeItemIndex !== -1) {              
+              scope.$apply(selectActiveItem);
+            }
+            break;
         }
       });
     }
