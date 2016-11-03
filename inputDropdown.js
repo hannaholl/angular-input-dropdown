@@ -142,7 +142,6 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       };
 
       scope.selectItem = function(item) {
-        console.log("Selected");
         scope.selectedItem = item;
         hideDropdown();
         scope.dropdownItems = [item];
