@@ -4,6 +4,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
     '<input type="text"' +
            'name="{{inputName}}"' +
            'placeholder="{{inputPlaceholder}}"' +
+           'ng-attr-placeholder="{{inputNgAttrPlaceholder}}"' +
            'autocomplete="off"' +
            'ng-model="inputValue"' +
            'ng-required="inputRequired"' +
@@ -33,6 +34,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       inputRequired: '=',
       inputName: '@',
       inputPlaceholder: '@',
+      inputNgAttrPlaceholder: '@',
       filterListMethod: '&',
       itemSelectedMethod: '&'
     },
