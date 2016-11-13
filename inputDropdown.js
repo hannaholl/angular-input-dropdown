@@ -108,6 +108,9 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         }
         else if (scope.allowCustomInput) {
           inputScope.updateInputValidity();
+          if (scope.itemSelectedMethod) {
+            scope.itemSelectedMethod({item: scope.inputValue});
+          }
         }
 
         if (scope.filterListMethod) {
