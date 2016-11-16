@@ -6,6 +6,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
            'placeholder="{{inputPlaceholder}}"' +
            'autocomplete="off"' +
            'ng-model="inputValue"' +
+           'class="{{inputClassName}}"' + 
            'ng-required="inputRequired"' +
            'ng-change="inputChange()"' +
            'ng-focus="inputFocus()"' +
@@ -32,6 +33,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       allowCustomInput: '=',
       inputRequired: '=',
       inputName: '@',
+      inputClassName: '@',
       inputPlaceholder: '@',
       filterListMethod: '&',
       itemSelectedMethod: '&'

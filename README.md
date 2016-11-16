@@ -77,6 +77,7 @@ Some basics styles are included in the `inputDropdownStyles.css` file. To overwr
 These attributes are available to set on the `<input-dropdown>` directive.
 
 * `input-placeholder`: String. Sets the placeholder attribute on the input element
+* `input-class-name`: String. Sets the classname for the input element - e.g. form-control for bootstrap
 * `input-name`: String. Sets the name attribute on the input element
 * `input-required`: Boolean. Sets ng-required on the input element. If true the input will validate when the user has made a selection from the dropdown list.
 * `selected-item`: Object, *required*. Used in the controller to read the user's selection. Can be set to null when created or equal to an item in the dropdown array to set the initial value for the input. Will update when the user selects an item from the list.
