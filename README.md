@@ -86,7 +86,7 @@ These attributes are available to set on the `<input-dropdown>` directive.
 * `item-selected-method`: Function. Called when user selects an item from the dropdown. Must be set with an `item` paramater: `item-selected-method="methodToCall(item)"`.
 * `allow-custom-input`: Boolean. Set to true to let user enter their own value instead of forcing an item from the dropdown list to be selected.
 
-### Custom user intup
+### Custom user input
 By default the field will only validate once the user has selected a value from the dropdown list. If you don't want this behaviour set the `allow-custom-input` attribute to true. This will allow the user to enter any value into the field and  set the field to be valid even if no item from the list was selected. This could be useful if you want to show the user a list of suggestions, but still want to let them submit a custom value too.
 
 #### Example
