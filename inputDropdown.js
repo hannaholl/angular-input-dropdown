@@ -39,20 +39,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       itemSelectedMethod: '&'
     },
     template: templateString,
-    controller: function($scope) {
-      this.getSelectedItem = function() {
-        return $scope.selectedItem;
-      };
-      this.isRequired = function() {
-        return $scope.inputRequired;
-      };
-      this.customInputAllowed = function() {
-        return $scope.allowCustomInput;
-      };
-      this.getInput = function() {
-        return $scope.inputValue;
-      };
-    },
+    controller: inputDropDownController ,
     link: function(scope, element) {
       var pressedDropdown = false;
       var inputScope = element.find('input').isolateScope();
@@ -62,6 +49,10 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       scope.dropdownVisible = false;
       scope.dropdownItems = scope.defaultDropdownItems || [];
 
+      scope.$watch('defaultDropdownItems',function(newValue, oldValue){
+    	  scope.dropdownItems = scope.defaultDropdownItems || [];
+      })
+      
       scope.$watch('dropdownItems', function(newValue, oldValue) {
         if (!angular.equals(newValue, oldValue)) {
           // If new dropdownItems were retrieved, reset active item
@@ -217,6 +208,24 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
     }
   }
 }]);
+
+
+inputDropDownController.$inject = ['$scope'];
+
+function inputDropDownController($scope) {
+      this.getSelectedItem = function() {
+        return $scope.selectedItem;
+      };
+      this.isRequired = function() {
+        return $scope.inputRequired;
+      };
+      this.customInputAllowed = function() {
+        return $scope.allowCustomInput;
+      };
+      this.getInput = function() {
+        return $scope.inputValue;
+      };
+}
 
 angular.module('inputDropdown').directive('inputDropdownValidator', function() {
   return {
