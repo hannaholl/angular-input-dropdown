@@ -37,7 +37,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       inputName: '@',
       inputClassName: '@',
       inputPlaceholder: '@',
-      onlyShowNonEmptyDropdownItems: '@',
+      onlyShowNonEmptyDropdown: '@',
       filterListMethod: '&',
       valueChangedMethod: '&',
       itemSelectedMethod: '&'
@@ -168,7 +168,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       };
 
       var showDropdown = function () {
-        if (scope.onlyShowNonEmptyDropdownItems && !(scope.dropdownItems && scope.dropdownItems.length)) {
+        if (scope.onlyShowNonEmptyDropdown && !(scope.dropdownItems && scope.dropdownItems.length)) {
           return;
         }
         scope.dropdownVisible = true;
