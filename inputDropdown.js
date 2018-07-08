@@ -13,7 +13,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
            'ng-blur="inputBlur($event)"' +
            'ng-disabled="disabled"' +
            'input-dropdown-validator>' +
-     '<ul ng-show="dropdownVisible">' +
+     '<ul ng-show="dropdownVisible && dropdownItems && dropdownItems.length">' +
       '<li ng-repeat="item in dropdownItems"' +
           'ng-click="selectItem(item)"' +
           'ng-mouseenter="setActive($index)"' +
