@@ -43,7 +43,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       itemSelectedMethod: '&'
     },
     template: templateString,
-    controller: function($scope) {
+    controller: ["$scope", function($scope) {
       this.getSelectedItem = function() {
         return $scope.selectedItem;
       };
@@ -56,7 +56,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       this.getInput = function() {
         return $scope.inputValue;
       };
-    },
+    }],
     link: function(scope, element) {
       var pressedDropdown = false;
       var inputScope = element.find('input').isolateScope();
