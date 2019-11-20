@@ -1,4 +1,10 @@
 # Angular input dropdown
+
+### This repo is no longer maintained
+If someone wants to take it over and have a fork that's being looked after, please let me know and I'll link it here.
+
+---
+
 Angular input dropdown is an angular directive for creating an input field with a stylable dropdown list. The list can be filtered or updated as the user types to show a list based on the user's input.
 
 If used in a form and `input-required` is set to true, the input field will validate only when an item from the dropdown list has been selected.
