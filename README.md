@@ -86,10 +86,13 @@ These attributes are available to set on the `<input-dropdown>` directive.
 * `input-class-name`: String. Sets the classname for the input element - e.g. form-control for bootstrap
 * `input-name`: String. Sets the name attribute on the input element
 * `input-required`: Boolean. Sets ng-required on the input element. If true the input will validate when the user has made a selection from the dropdown list.
+* `disabled`: Boolean. Sets ng-disabled on the input element
 * `selected-item`: Object, *required*. Used in the controller to read the user's selection. Can be set to null when created or equal to an item in the dropdown array to set the initial value for the input. Will update when the user selects an item from the list.
 * `default-dropdown-items`: Array. An array of strings or object to show in the dropdown list. If objects, each object must have a property `readableName` which is what will show in the dropdown. If not set there will be no default list when the input field is empty and you'll need to pass a list based on the users input in the `filter-list-method`.
+* `only-show-non-empty-dropdown`: Boolean. If not set or set to false there will show dropdown always even though the dropdown has no item.
 * `filter-list-method`: Function. Called when user types in the input field. Must return a promise that resolves with an array to use as a new dropdown list. Must be set with a `userInput` paramater: `filter-list-method="methodToCall(userInput)"`.
 * `item-selected-method`: Function. Called when user selects an item from the dropdown. Must be set with an `item` paramater: `item-selected-method="methodToCall(item)"`.
+* `value-changed-method`: Function. Called when user changes text in the input field or selects an item from the dropdown. The function can be set with `value` and `from` parameters: `value-changed-method="methodToCall(value, from)"`.
 * `allow-custom-input`: Boolean. Set to true to let user enter their own value instead of forcing an item from the dropdown list to be selected.
 
 ### Custom user input

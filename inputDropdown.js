@@ -6,13 +6,14 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
            'placeholder="{{inputPlaceholder}}"' +
            'autocomplete="off"' +
            'ng-model="inputValue"' +
-           'class="{{inputClassName}}"' + 
+           'class="{{inputClassName}}"' +
            'ng-required="inputRequired"' +
            'ng-change="inputChange()"' +
            'ng-focus="inputFocus()"' +
            'ng-blur="inputBlur($event)"' +
+           'ng-disabled="disabled"' +
            'input-dropdown-validator>' +
-     '<ul ng-show="dropdownVisible">' +
+     '<ul ng-show="dropdownVisible && dropdownItems && dropdownItems.length">' +
       '<li ng-repeat="item in dropdownItems"' +
           'ng-click="selectItem(item)"' +
           'ng-mouseenter="setActive($index)"' +
@@ -32,14 +33,17 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       selectedItem: '=',
       allowCustomInput: '=',
       inputRequired: '=',
+      disabled: '=',
       inputName: '@',
       inputClassName: '@',
       inputPlaceholder: '@',
+      onlyShowNonEmptyDropdown: '@',
       filterListMethod: '&',
+      valueChangedMethod: '&',
       itemSelectedMethod: '&'
     },
     template: templateString,
-    controller: function($scope) {
+    controller: ["$scope", function($scope) {
       this.getSelectedItem = function() {
         return $scope.selectedItem;
       };
@@ -52,7 +56,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       this.getInput = function() {
         return $scope.inputValue;
       };
-    },
+    }],
     link: function(scope, element) {
       var pressedDropdown = false;
       var inputScope = element.find('input').isolateScope();
@@ -108,6 +112,8 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         scope.selectedItem = null;
         showDropdown();
 
+        fireValueChangedEvent(scope.inputValue, 'input');
+
         if (!scope.inputValue) {
           scope.dropdownItems = scope.defaultDropdownItems || [];
           return;
@@ -154,12 +160,17 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         hideDropdown();
         scope.dropdownItems = [item];
 
+        fireValueChangedEvent(item, 'select');
+
         if (scope.itemSelectedMethod) {
           scope.itemSelectedMethod({item: item});
         }
       };
 
       var showDropdown = function () {
+        if (scope.onlyShowNonEmptyDropdown && !(scope.dropdownItems && scope.dropdownItems.length)) {
+          return;
+        }
         scope.dropdownVisible = true;
       };
       var hideDropdown = function() {
@@ -192,6 +203,15 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
         }
       };
 
+      var fireValueChangedEvent = function(value, from) {
+        if (scope.valueChangedMethod) {
+          scope.valueChangedMethod({
+            value: value,
+            from: from
+          })
+        }
+      };
+
       element.bind("keydown keypress", function (event) {
         switch (event.which) {
           case 38: //up
@@ -208,7 +228,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
             }
             break;
           case 9: // tab
-            if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0 && scope.activeItemIndex !== -1) {              
+            if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0 && scope.activeItemIndex !== -1) {
               scope.$apply(selectActiveItem);
             }
             break;
