@@ -2,6 +2,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
   var templateString =
   '<div class="input-dropdown">' +
     '<input type="text"' +
+		   'id="{{inputId}}"' +
            'name="{{inputName}}"' +
            'placeholder="{{inputPlaceholder}}"' +
            'autocomplete="off"' +
@@ -33,6 +34,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       allowCustomInput: '=',
       inputRequired: '=',
       inputName: '@',
+	  inputId: '@',
       inputClassName: '@',
       inputPlaceholder: '@',
       filterListMethod: '&',
@@ -58,7 +60,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       var inputScope = element.find('input').isolateScope();
 
       scope.activeItemIndex = 0;
-      scope.inputValue = '';
+      scope.inputValue = scope.selectedItem || '';
       scope.dropdownVisible = false;
       scope.dropdownItems = scope.defaultDropdownItems || [];
 
