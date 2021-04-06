@@ -60,7 +60,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       var inputScope = element.find('input').isolateScope();
 
       scope.activeItemIndex = 0;
-      scope.inputValue = '';
+      scope.inputValue = scope.selectedItem || '';
       scope.dropdownVisible = false;
       scope.dropdownItems = scope.defaultDropdownItems || [];
 
